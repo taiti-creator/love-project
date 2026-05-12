@@ -17,16 +17,18 @@ type StoredAnswer = {
 };
 
 const loadingMessages = [
-  "恋愛傾向を分析中…",
-  "深層心理を解析中…",
-  "相性構造を照合中…",
-  "恋愛人格を生成中…",
+  "深層恋愛人格を分析中…",
+  "愛着構造を解析中…",
+  "感情依存パターンを照合中…",
+  "無意識の恋愛傾向を生成中…",
 ];
 
 const questions = questionsData as Question[];
 
 export default function DiagnosisPage() {
   const router = useRouter();
+  const [gender, setGender] = useState<"male" | "female">("female");
+  const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<StoredAnswer[]>([]);
   const [isLoadingResult, setIsLoadingResult] = useState(false);
@@ -47,7 +49,13 @@ export default function DiagnosisPage() {
     }, 700);
 
     const navTimer = setTimeout(() => {
-      sessionStorage.setItem("diagnosisAnswers", JSON.stringify(answers));
+      sessionStorage.setItem(
+        "diagnosisPayload",
+        JSON.stringify({
+          gender,
+          answers,
+        })
+      );
       router.push("/result");
     }, 3000);
 
@@ -55,7 +63,7 @@ export default function DiagnosisPage() {
       clearInterval(messageTimer);
       clearTimeout(navTimer);
     };
-  }, [answers, isLoadingResult, router]);
+  }, [answers, gender, isLoadingResult, router]);
 
   const handleSelect = (value: number) => {
     if (!current || isLoadingResult) return;
@@ -82,6 +90,48 @@ export default function DiagnosisPage() {
       <main className="min-h-screen bg-[#fbf7f2] px-4 py-10 text-[#2a2522]">
         <div className="mx-auto max-w-md rounded-3xl bg-white/85 p-6 shadow-sm">
           質問データが見つかりませんでした。
+        </div>
+      </main>
+    );
+  }
+
+  if (!started) {
+    return (
+      <main className="min-h-screen bg-[#fbf7f2] px-4 py-10 text-[#2a2522]">
+        <div className="mx-auto max-w-md rounded-3xl bg-white p-6 shadow-[0_14px_40px_rgba(40,30,20,0.08)]">
+          <p className="text-xs tracking-[0.14em] text-[#8a7c73]">DIAGNOSIS</p>
+          <h1 className="mt-2 text-2xl font-semibold">恋愛人格の深層分析</h1>
+          <p className="mt-3 text-sm leading-7 text-[#675b54]">
+            60の質問から、あなたの無意識パターンを5軸で抽出します。
+          </p>
+          <div className="mt-6 grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setGender("female")}
+              className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                gender === "female"
+                  ? "bg-[#2a2522] text-white"
+                  : "border border-[#e8ddd2] bg-[#fffdfa] text-[#3a332f]"
+              }`}
+            >
+              女性として診断
+            </button>
+            <button
+              onClick={() => setGender("male")}
+              className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                gender === "male"
+                  ? "bg-[#2a2522] text-white"
+                  : "border border-[#e8ddd2] bg-[#fffdfa] text-[#3a332f]"
+              }`}
+            >
+              男性として診断
+            </button>
+          </div>
+          <button
+            onClick={() => setStarted(true)}
+            className="mt-6 w-full rounded-full bg-[#2a2522] px-4 py-3 text-sm font-semibold text-white"
+          >
+            診断を開始する
+          </button>
         </div>
       </main>
     );
