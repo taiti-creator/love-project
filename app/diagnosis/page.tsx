@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import questionsData from "@/app/data/questions.json";
@@ -23,6 +23,81 @@ const loadingMessages = [
   "無意識の恋愛傾向を生成中…",
 ];
 
+/** 1=強い肯定 … 7=強い否定（保存値は従来どおり 1〜7） */
+const ANSWER_SCALE_LABELS: Record<number, string> = {
+  1: "とても当てはまる",
+  2: "かなり当てはまる",
+  3: "少し当てはまる",
+  4: "どちらでもない",
+  5: "あまり当てはまらない",
+  6: "ほとんど当てはまらない",
+  7: "全く当てはまらない",
+};
+
+const SCALE_BUTTON_META: Record<
+  number,
+  { sizeClass: string; colors: { idle: string; selected: string; ring: string } }
+> = {
+  1: {
+    sizeClass:
+      "h-10 w-10 min-h-10 min-w-10 sm:h-12 sm:w-12 sm:min-h-[3rem] sm:min-w-[3rem]",
+    colors: {
+      idle: "border-[#3d8f62]/45 bg-[#e8f4ec] text-[#1f5a3a]",
+      selected: "border-[#2d6a4a] bg-[#2d6a4a] text-white shadow-[0_10px_28px_rgba(45,106,74,0.45)]",
+      ring: "ring-[#2d6a4a]/35",
+    },
+  },
+  2: {
+    sizeClass: "h-10 w-10 min-h-10 min-w-10 sm:h-11 sm:w-11 sm:min-h-[2.75rem] sm:min-w-[2.75rem]",
+    colors: {
+      idle: "border-[#4a9d72]/40 bg-[#eef7f1] text-[#256844]",
+      selected: "border-[#35825c] bg-[#35825c] text-white shadow-[0_8px_22px_rgba(53,130,92,0.38)]",
+      ring: "ring-[#35825c]/30",
+    },
+  },
+  3: {
+    sizeClass: "h-9 w-9 min-h-9 min-w-9 sm:h-10 sm:w-10 sm:min-h-10 sm:min-w-10",
+    colors: {
+      idle: "border-[#6aab8a]/38 bg-[#f2faf5] text-[#2d5c45]",
+      selected: "border-[#4a9d72] bg-[#4a9d72] text-white shadow-[0_6px_18px_rgba(74,157,114,0.32)]",
+      ring: "ring-[#4a9d72]/28",
+    },
+  },
+  4: {
+    sizeClass: "h-8 w-8 min-h-8 min-w-8 sm:h-8 sm:w-8",
+    colors: {
+      idle: "border-[#c9bfb5] bg-[#f3f0ec] text-[#6f645d]",
+      selected: "border-[#9a9189] bg-[#9a9189] text-white shadow-[0_6px_16px_rgba(120,112,104,0.28)]",
+      ring: "ring-[#9a9189]/30",
+    },
+  },
+  5: {
+    sizeClass: "h-9 w-9 min-h-9 min-w-9 sm:h-10 sm:w-10 sm:min-h-10 sm:min-w-10",
+    colors: {
+      idle: "border-[#a890c4]/42 bg-[#f5f0fa] text-[#5c4578]",
+      selected: "border-[#8b6fb0] bg-[#8b6fb0] text-white shadow-[0_6px_18px_rgba(139,111,176,0.32)]",
+      ring: "ring-[#8b6fb0]/28",
+    },
+  },
+  6: {
+    sizeClass: "h-10 w-10 min-h-10 min-w-10 sm:h-11 sm:w-11 sm:min-h-[2.75rem] sm:min-w-[2.75rem]",
+    colors: {
+      idle: "border-[#8b6fb0]/45 bg-[#efe8f7] text-[#4f3a68]",
+      selected: "border-[#6f5494] bg-[#6f5494] text-white shadow-[0_8px_22px_rgba(111,84,148,0.38)]",
+      ring: "ring-[#6f5494]/30",
+    },
+  },
+  7: {
+    sizeClass:
+      "h-10 w-10 min-h-10 min-w-10 sm:h-12 sm:w-12 sm:min-h-[3rem] sm:min-w-[3rem]",
+    colors: {
+      idle: "border-[#6f5494]/50 bg-[#ede6f4] text-[#3d2d52]",
+      selected: "border-[#5a3f7a] bg-[#5a3f7a] text-white shadow-[0_10px_28px_rgba(90,63,122,0.45)]",
+      ring: "ring-[#5a3f7a]/35",
+    },
+  },
+};
+
 const questions = questionsData as Question[];
 
 export default function DiagnosisPage() {
@@ -33,6 +108,8 @@ export default function DiagnosisPage() {
   const [answers, setAnswers] = useState<StoredAnswer[]>([]);
   const [isLoadingResult, setIsLoadingResult] = useState(false);
   const [loadingIndex, setLoadingIndex] = useState(0);
+  const [pendingAnswer, setPendingAnswer] = useState<number | null>(null);
+  const commitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const current = questions[index];
   const total = questions.length;
@@ -65,24 +142,37 @@ export default function DiagnosisPage() {
     };
   }, [answers, gender, isLoadingResult, router]);
 
+  useEffect(() => {
+    return () => {
+      if (commitTimerRef.current) clearTimeout(commitTimerRef.current);
+    };
+  }, []);
+
   const handleSelect = (value: number) => {
-    if (!current || isLoadingResult) return;
+    if (!current || isLoadingResult || pendingAnswer !== null) return;
 
-    const nextAnswers = [
-      ...answers,
-      {
-        questionId: Number(current.id),
-        answer: value,
-      },
-    ];
-    setAnswers(nextAnswers);
+    setPendingAnswer(value);
+    if (commitTimerRef.current) clearTimeout(commitTimerRef.current);
+    commitTimerRef.current = setTimeout(() => {
+      commitTimerRef.current = null;
+      setPendingAnswer(null);
 
-    if (index >= total - 1) {
-      setIsLoadingResult(true);
-      return;
-    }
+      const nextAnswers = [
+        ...answers,
+        {
+          questionId: Number(current.id),
+          answer: value,
+        },
+      ];
+      setAnswers(nextAnswers);
 
-    setIndex((prev) => prev + 1);
+      if (index >= total - 1) {
+        setIsLoadingResult(true);
+        return;
+      }
+
+      setIndex((prev) => prev + 1);
+    }, 260);
   };
 
   if (!current && !isLoadingResult) {
@@ -169,17 +259,55 @@ export default function DiagnosisPage() {
               <p className="text-xs tracking-[0.14em] text-[#8a7c73]">QUESTION</p>
               <h1 className="mt-3 text-xl leading-8">{current?.question}</h1>
 
-              <div className="mt-6 grid gap-2.5">
-                {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-                  <motion.button
-                    key={n}
-                    whileTap={{ scale: 0.985 }}
-                    className="rounded-2xl border border-[#e8ddd2] bg-[#fffdfa] px-4 py-3 text-left text-[15px] text-[#3a332f] shadow-sm transition hover:bg-[#f8f0e8]"
-                    onClick={() => handleSelect(n)}
-                  >
-                    {current?.[`answer_${n}`]}
-                  </motion.button>
-                ))}
+              <div className="mt-8 w-full max-w-full overflow-x-hidden">
+                <div
+                  className="flex w-full items-center justify-between gap-0.5 sm:gap-1.5"
+                  role="radiogroup"
+                  aria-label="回答の程度（1が最も当てはまる）"
+                >
+                  {[1, 2, 3, 4, 5, 6, 7].map((n) => {
+                    const meta = SCALE_BUTTON_META[n];
+                    const label = ANSWER_SCALE_LABELS[n];
+                    const selected = pendingAnswer === n;
+                    const dimOthers = pendingAnswer !== null && !selected;
+                    return (
+                      <div key={n} className="flex min-w-0 flex-1 justify-center">
+                        <motion.button
+                          type="button"
+                          aria-label={label}
+                          title={label}
+                          disabled={pendingAnswer !== null}
+                          whileTap={
+                            pendingAnswer === null ? { scale: 0.94 } : undefined
+                          }
+                          animate={{
+                            scale: selected ? 1.1 : 1,
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 460,
+                            damping: 22,
+                          }}
+                          className={[
+                            "touch-manipulation rounded-full border-2 transition-colors duration-200",
+                            meta.sizeClass,
+                            selected
+                              ? `${meta.colors.selected} z-[1] ring-4 ring-offset-2 ring-offset-white ${meta.colors.ring}`
+                              : `${meta.colors.idle} shadow-[0_2px_8px_rgba(42,37,34,0.06)] hover:brightness-[0.99]`,
+                            dimOthers ? "pointer-events-none opacity-40" : "",
+                          ].join(" ")}
+                          onClick={() => handleSelect(n)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-4 flex justify-between gap-2 px-0.5 text-[11px] font-medium tracking-[0.06em] sm:text-xs">
+                  <span className="max-w-[42%] text-left text-[#356d52]">そう思う</span>
+                  <span className="max-w-[42%] text-right text-[#5c4578]">
+                    そう思わない
+                  </span>
+                </div>
               </div>
             </motion.section>
           ) : (
