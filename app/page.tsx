@@ -1,218 +1,104 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
-import questionsData from "@/app/data/questions.json";
-import logicData from "@/app/data/logic.json";
-import charactersData from "@/app/data/characters.json";
-import templatesData from "@/app/data/result_templates.json";
+import { motion } from "framer-motion";
+import { Heart, Sparkles, Users } from "lucide-react";
 
-type Gender = "male" | "female";
-
-type Question = {
-  id: string;
-  question: string;
-  [key: string]: string;
+const heroContainer = {
+  initial: {},
+  animate: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.06 },
+  },
 };
 
-type LogicRow = {
-  question_id: string | null;
-  positive_type: string | null;
-  negative_type: string | null;
-  weight: string | null;
-  [key: string]: string | null;
+const fadeUp = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] } },
 };
-
-type Character = {
-  code: string;
-  gender: Gender;
-  character_name: string;
-  archetype: string;
-  love_behavior: string;
-};
-
-type ResultTemplate = {
-  code: string;
-  gender: Gender;
-  headline: string;
-  final_message: string;
-};
-
-const questions = questionsData as Question[];
-const logicRows = (logicData as LogicRow[]).filter((row) => row.question_id);
-const characters = charactersData as Character[];
-const resultTemplates = templatesData as ResultTemplate[];
-
-const codeTypePairs = [
-  ["Connection", "Passion", "C", "P"],
-  ["Security", "Freedom", "S", "F"],
-  ["Independent", "Bond", "I", "B"],
-  ["Approval", "Value", "A", "V"],
-  ["Lead", "Receive", "L", "R"],
-] as const;
 
 export default function Page() {
-  const [gender, setGender] = useState<Gender>("male");
-  const [started, setStarted] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-[#fbf7f2] text-[#2a2522]">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,rgba(255,255,255,0.85),transparent)]"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-[#efe6dc] blur-3xl opacity-80" />
+      <div className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-[#e8e0f4] blur-3xl opacity-50" />
 
-  const currentQuestion = questions[currentIndex];
-  const progress = Math.round((Object.keys(answers).length / questions.length) * 100);
-  const isComplete = Object.keys(answers).length === questions.length;
+      <div className="relative mx-auto flex min-h-screen max-w-lg flex-col px-5 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-14">
+        <motion.header
+          className="text-center"
+          variants={heroContainer}
+          initial="initial"
+          animate="animate"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-[11px] font-medium tracking-[0.22em] text-[#8a7c73] sm:text-xs"
+          >
+            深層恋愛タイプ診断 · 64キャラ
+          </motion.p>
+          <motion.h1
+            variants={fadeUp}
+            className="mx-auto mt-6 max-w-[17rem] text-[1.65rem] font-semibold leading-snug tracking-tight text-[#1f1a17] sm:max-w-none sm:text-4xl sm:leading-tight"
+          >
+            好きになる人と、
+            <br />
+            幸せになれる人は違う。
+          </motion.h1>
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-[#5c534d] sm:text-base sm:leading-relaxed"
+          >
+            60問の質問で、あなたの「恋愛」と「結婚」のズレが輪郭として見えてきます。64タイプの中から、あなただけの傾向をまとめます。
+          </motion.p>
+        </motion.header>
 
-  const result = useMemo(() => {
-    if (!isComplete) return null;
-
-    const scores: Record<string, number> = {};
-
-    for (const row of logicRows) {
-      const qid = row.question_id;
-      if (!qid) continue;
-      const answer = answers[qid];
-      if (!answer) continue;
-
-      const scoreKey = `answer_${answer}_score`;
-      const rawScore = Number(row[scoreKey] ?? 0);
-      const weight = Number(row.weight ?? 1);
-      const weightedScore = rawScore * weight;
-
-      const positiveType = row.positive_type ?? "";
-      const negativeType = row.negative_type ?? "";
-
-      if (weightedScore >= 0 && positiveType) {
-        scores[positiveType] = (scores[positiveType] ?? 0) + weightedScore;
-      } else if (weightedScore < 0 && negativeType) {
-        scores[negativeType] = (scores[negativeType] ?? 0) + Math.abs(weightedScore);
-      }
-    }
-
-    const code = codeTypePairs
-      .map(([leftType, rightType, leftCode, rightCode]) =>
-        (scores[leftType] ?? 0) >= (scores[rightType] ?? 0) ? leftCode : rightCode
-      )
-      .join("");
-
-    const character =
-      characters.find((item) => item.code === code && item.gender === gender) ?? null;
-    const template =
-      resultTemplates.find((item) => item.code === code && item.gender === gender) ?? null;
-
-    return { code, character, template };
-  }, [answers, gender, isComplete]);
-
-  const handleAnswer = (value: number) => {
-    const qid = currentQuestion?.id;
-    if (!qid) return;
-
-    setAnswers((prev) => ({ ...prev, [qid]: value }));
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-    }
-  };
-
-  const reset = () => {
-    setStarted(false);
-    setCurrentIndex(0);
-    setAnswers({});
-  };
-
-  if (!started) {
-    return (
-      <main className="mx-auto min-h-screen max-w-3xl px-4 py-12 text-[#2a2522]">
-        <h1 className="text-3xl font-bold">恋愛人格診断</h1>
-        <p className="mt-3 text-[#665b55]">60問に答えると、5軸スコアから結果コードを算出します。</p>
-        <div className="mt-8 rounded-2xl border border-[#ddd3c9] bg-white p-6">
-          <p className="mb-3 font-semibold">性別を選択してください</p>
-          <div className="flex gap-2">
-            <button
-              className={`rounded-full px-4 py-2 ${gender === "male" ? "bg-[#2a2522] text-white" : "bg-[#f4ede5]"}`}
-              onClick={() => setGender("male")}
+        <motion.ul
+          className="mx-auto mt-10 grid w-full max-w-sm grid-cols-3 gap-2.5 sm:mt-12 sm:gap-3"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.45 }}
+        >
+          {[
+            { n: "60", l: "質問", icon: Sparkles },
+            { n: "64", l: "キャラ", icon: Users },
+            { n: "5", l: "軸スコア", icon: Heart },
+          ].map((item) => (
+            <li
+              key={item.l}
+              className="flex flex-col items-center rounded-2xl border border-[#ebe3d9] bg-white/90 px-2 py-4 text-center shadow-[0_8px_28px_rgba(42,37,34,0.06)] backdrop-blur-sm sm:py-5"
             >
-              male
-            </button>
-            <button
-              className={`rounded-full px-4 py-2 ${gender === "female" ? "bg-[#2a2522] text-white" : "bg-[#f4ede5]"}`}
-              onClick={() => setGender("female")}
-            >
-              female
-            </button>
-          </div>
+              <item.icon className="h-4 w-4 text-[#9a8b82] sm:h-5 sm:w-5" strokeWidth={1.5} />
+              <span className="mt-2 text-xl font-semibold tabular-nums text-[#2a2522] sm:text-2xl">
+                {item.n}
+              </span>
+              <span className="mt-0.5 text-[10px] font-medium tracking-wide text-[#8a7c73] sm:text-xs">
+                {item.l}
+              </span>
+            </li>
+          ))}
+        </motion.ul>
+
+        <motion.div
+          className="mt-auto flex w-full flex-col items-center pt-12 sm:pt-16"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
+        >
           <Link
             href="/diagnosis"
-            className="mt-6 inline-block rounded-full bg-[#2a2522] px-6 py-3 font-semibold text-white"
+            className="group relative w-full max-w-sm overflow-hidden rounded-full bg-[#2a2522] px-8 py-4 text-center text-base font-semibold text-white shadow-[0_14px_40px_rgba(42,37,34,0.28)] transition hover:shadow-[0_18px_48px_rgba(42,37,34,0.34)] active:scale-[0.99] sm:py-[1.125rem] sm:text-lg"
           >
-            診断をはじめる
+            <span className="relative z-10">無料で診断をはじめる</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent opacity-0 transition group-hover:opacity-100" />
           </Link>
-        </div>
-      </main>
-    );
-  }
-
-  return (
-    <main className="mx-auto min-h-screen max-w-3xl px-4 py-8 text-[#2a2522]">
-      <div className="mb-6">
-        <p className="text-sm text-[#7d716b]">進捗: {Object.keys(answers).length} / {questions.length}</p>
-        <div className="mt-2 h-2 rounded-full bg-[#eadfd3]">
-          <div className="h-2 rounded-full bg-[#2a2522]" style={{ width: `${progress}%` }} />
-        </div>
+          <p className="mt-4 max-w-xs text-center text-xs leading-relaxed text-[#8a7c73]">
+            所要時間は目安で10〜15分。回答は端末内にのみ保存され、落ち着いた画面で進められます。
+          </p>
+        </motion.div>
       </div>
-
-      {!isComplete && currentQuestion && (
-        <section className="rounded-2xl border border-[#ddd3c9] bg-white p-6">
-          <p className="text-sm text-[#7d716b]">Q{currentIndex + 1}</p>
-          <h2 className="mt-2 text-xl font-semibold leading-8">{currentQuestion.question}</h2>
-          <div className="mt-6 grid gap-2">
-            {[1, 2, 3, 4, 5, 6, 7].map((answerNo) => {
-              const label = currentQuestion[`answer_${answerNo}`];
-              return (
-                <button
-                  key={answerNo}
-                  className="rounded-xl border border-[#ddd3c9] px-4 py-3 text-left hover:bg-[#f9f5ef]"
-                  onClick={() => handleAnswer(answerNo)}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {isComplete && result && (
-        <section className="rounded-2xl border border-[#ddd3c9] bg-white p-6">
-          <p className="text-sm text-[#7d716b]">診断結果</p>
-          <h2 className="mt-2 text-3xl font-bold">{result.code}</h2>
-
-          {result.character && (
-            <div className="mt-5 rounded-xl bg-[#f9f5ef] p-4">
-              <p className="font-semibold">{result.character.character_name}</p>
-              <p className="mt-1 text-sm text-[#665b55]">{result.character.archetype}</p>
-              <p className="mt-3 text-sm">{result.character.love_behavior}</p>
-            </div>
-          )}
-
-          {result.template && (
-            <div className="mt-4 rounded-xl bg-[#f4ede5] p-4">
-              <p className="font-semibold">{result.template.headline}</p>
-              <p className="mt-2 text-sm">{result.template.final_message}</p>
-            </div>
-          )}
-
-          {!result.character && !result.template && (
-            <p className="mt-4 text-sm text-red-600">
-              この gender + code に一致する表示データが見つかりませんでした。
-            </p>
-          )}
-
-          <button
-            className="mt-6 rounded-full bg-[#2a2522] px-6 py-3 font-semibold text-white"
-            onClick={reset}
-          >
-            もう一度診断する
-          </button>
-        </section>
-      )}
     </main>
   );
 }
