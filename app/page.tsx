@@ -18,15 +18,46 @@ const fadeUp = {
 
 export default function Page() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#fbf7f2] text-[#2a2522]">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[#f6f0ea] text-[#2a2522]">
+      {/* ベース：ベージュ〜クリームの縦グラデ（白飛びしにくい） */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,rgba(255,255,255,0.85),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#fdf8f5] via-[#f9f3ec] to-[#ebe4db]"
         aria-hidden
       />
-      <div className="pointer-events-none absolute -right-24 top-24 h-72 w-72 rounded-full bg-[#efe6dc] blur-3xl opacity-80" />
-      <div className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-[#e8e0f4] blur-3xl opacity-50" />
+      {/* 上部：淡いピンクベージュの灯り（深夜の一室・柔らかい照明） */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_115%_60%_at_50%_-12%,rgba(250,228,218,0.5),transparent_58%)]"
+        aria-hidden
+      />
+      {/* 中央：わずかに肌色寄りのハイライト */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_38%,rgba(255,248,242,0.35),transparent_65%)]"
+        aria-hidden
+      />
+      {/* 下部：薄いブラウン／黒の余韻（床寄りの影・落ち着き） */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(32,26,22,0.11)]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_95%_55%_at_50%_108%,rgba(24,18,14,0.16),transparent_52%)]"
+        aria-hidden
+      />
+      {/* 丸いぼかし装飾（控えめ・安心感のあるトーン） */}
+      <div
+        className="pointer-events-none absolute -top-24 left-1/2 h-[min(22rem,78vw)] w-[min(24rem,88vw)] -translate-x-1/2 rounded-full bg-[#f3d8ce] blur-[72px] opacity-[0.42] sm:blur-[88px] sm:opacity-[0.38]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-[20%] top-[26%] h-56 w-56 rounded-full bg-[#e8ddd4] blur-[64px] opacity-55 sm:h-72 sm:w-72 sm:blur-[80px]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -bottom-[8%] -left-[18%] h-72 w-72 rounded-full bg-[#cfc4bc] blur-[90px] opacity-35 sm:h-80 sm:w-80"
+        aria-hidden
+      />
 
-      <div className="relative mx-auto flex min-h-screen max-w-lg flex-col px-5 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-14">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-lg flex-col px-5 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-14">
         <motion.header
           className="text-center"
           variants={heroContainer}
@@ -89,7 +120,7 @@ export default function Page() {
         >
           <Link
             href="/diagnosis"
-            className="group relative w-full max-w-sm overflow-hidden rounded-full bg-[#2a2522] px-8 py-4 text-center text-base font-semibold text-white shadow-[0_14px_40px_rgba(42,37,34,0.28)] transition hover:shadow-[0_18px_48px_rgba(42,37,34,0.34)] active:scale-[0.99] sm:py-[1.125rem] sm:text-lg"
+            className="group relative w-full max-w-sm -translate-y-0.5 overflow-hidden rounded-full bg-[#2a2522] px-8 py-4 text-center text-base font-semibold text-white shadow-[0_18px_48px_rgba(28,22,18,0.32),0_6px_16px_rgba(42,37,34,0.12)] ring-1 ring-white/15 transition hover:-translate-y-1 hover:shadow-[0_22px_56px_rgba(28,22,18,0.38),0_8px_20px_rgba(42,37,34,0.14)] active:translate-y-0 active:scale-[0.99] sm:py-[1.125rem] sm:text-lg"
           >
             <span className="relative z-10">無料で診断をはじめる</span>
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent opacity-0 transition group-hover:opacity-100" />
