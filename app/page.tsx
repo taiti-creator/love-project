@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import questionsData from "@/app/data/questions.json";
 import logicData from "@/app/data/logic.json";
 import charactersData from "@/app/data/characters.json";
@@ -137,12 +138,12 @@ export default function Page() {
               female
             </button>
           </div>
-          <button
-            className="mt-6 rounded-full bg-[#2a2522] px-6 py-3 font-semibold text-white"
-            onClick={() => setStarted(true)}
+          <Link
+            href="/diagnosis"
+            className="mt-6 inline-block rounded-full bg-[#2a2522] px-6 py-3 font-semibold text-white"
           >
             診断をはじめる
-          </button>
+          </Link>
         </div>
       </main>
     );
