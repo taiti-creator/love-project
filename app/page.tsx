@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Heart, Sparkles, Users } from "lucide-react";
+import questionsData from "@/app/data/questions.json";
+
+const questionCount = Array.isArray(questionsData) ? questionsData.length : 0;
 
 const heroContainer = {
   initial: {},
@@ -13,7 +16,11 @@ const heroContainer = {
 
 const fadeUp = {
   initial: { opacity: 0, y: 18 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] } },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
 export default function Page() {
@@ -68,21 +75,35 @@ export default function Page() {
             variants={fadeUp}
             className="text-[11px] font-medium tracking-[0.22em] text-[#8a7c73] sm:text-xs"
           >
-            深層恋愛タイプ診断 · 64キャラ
+            幸せな結婚のための自己分析 · 32キャラ
           </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="mx-auto mt-5 h-px w-10 rounded-full bg-gradient-to-r from-transparent via-[#c9bfb5] to-transparent sm:mt-6"
+            aria-hidden
+          />
           <motion.h1
             variants={fadeUp}
-            className="mx-auto mt-6 max-w-[17rem] text-[1.65rem] font-semibold leading-snug tracking-tight text-[#1f1a17] sm:max-w-none sm:text-4xl sm:leading-tight"
+            className="mx-auto mt-6 max-w-[19rem] text-balance text-center sm:mt-7 sm:max-w-[24rem] md:max-w-xl"
           >
-            好きになる人と、
-            <br />
-            幸せになれる人は違う。
+            <span className="block text-[1.5625rem] font-semibold leading-[1.4] tracking-[-0.02em] text-[#1f1a17] sm:text-[2.125rem] sm:leading-[1.32] md:text-4xl md:leading-[1.25]">
+              あなたの「好き」は、
+            </span>
+            <span className="mt-1 block text-[1.5625rem] font-semibold leading-[1.4] tracking-[-0.02em] text-[#1f1a17] sm:mt-1.5 sm:text-[2.125rem] sm:leading-[1.32] md:text-4xl md:leading-[1.25]">
+              本当にあなたを幸せにしていますか？
+            </span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-[#5c534d] sm:text-base sm:leading-relaxed"
+            className="mx-auto mt-7 max-w-sm text-[15px] leading-[1.75] text-[#5c534d] sm:mt-8 sm:text-base sm:leading-[1.72]"
           >
-            60問の質問で、あなたの「恋愛」と「結婚」のズレが輪郭として見えてきます。64タイプの中から、あなただけの傾向をまとめます。
+            {questionCount > 0 ? (
+              <>
+                {questionCount}問で、あなたが恋愛で繰り返しやすい不安や、結婚で苦しくなる理由を分析します。相手の性格診断ではなく、あなた自身の未成熟さや癖に光を当てます。
+              </>
+            ) : (
+              <>質問データを読み込めませんでした。</>
+            )}
           </motion.p>
         </motion.header>
 
@@ -93,8 +114,8 @@ export default function Page() {
           transition={{ delay: 0.2, duration: 0.45 }}
         >
           {[
-            { n: "60", l: "質問", icon: Sparkles },
-            { n: "64", l: "キャラ", icon: Users },
+            { n: questionCount > 0 ? String(questionCount) : "—", l: "質問", icon: Sparkles },
+            { n: "32", l: "キャラ", icon: Users },
             { n: "5", l: "軸スコア", icon: Heart },
           ].map((item) => (
             <li

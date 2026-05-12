@@ -22,10 +22,10 @@ type StoredAnswer = {
 const PART_SIZE = 5;
 
 const loadingMessages = [
-  "深層恋愛人格を分析中…",
-  "愛着構造を解析中…",
-  "感情依存パターンを照合中…",
-  "無意識の恋愛傾向を生成中…",
+  "結婚人格の傾向を読み取っています…",
+  "恋愛の癖と、結婚で苦しくなる理由を整理中…",
+  "未成熟さが出やすいパターンを照合中…",
+  "あなた自身の分析レポートを生成中…",
 ];
 
 /** questions.json の category キー → パート見出し（なければキーをそのまま表示） */
@@ -64,6 +64,12 @@ const ANSWER_SCALE_LABELS: Record<number, string> = {
   6: "ほとんど当てはまらない",
   7: "全く当てはまらない",
 };
+
+function scaleLabelForQuestion(q: Question, n: number): string {
+  const raw = q[`answer_${n}`];
+  if (typeof raw === "string" && raw.trim()) return raw;
+  return ANSWER_SCALE_LABELS[n] ?? "";
+}
 
 const SCALE_BUTTON_META: Record<
   number,
@@ -205,7 +211,12 @@ export default function DiagnosisPage() {
 
   const showNextPartButton = waitingForNextPartAdvance;
 
-  const showAlmostThere = started && !isLoadingResult && answers.length >= 48 && answers.length < total;
+  const showAlmostThere =
+    started &&
+    !isLoadingResult &&
+    total > PART_SIZE &&
+    answers.length >= total - PART_SIZE &&
+    answers.length < total;
 
   useEffect(() => {
     if (!isLoadingResult) return;
@@ -299,10 +310,11 @@ export default function DiagnosisPage() {
     return (
       <main className="min-h-screen bg-[#fbf7f2] px-4 py-10 text-[#2a2522]">
         <div className="mx-auto max-w-md rounded-3xl bg-white p-7 shadow-[0_14px_40px_rgba(40,30,20,0.08)]">
-          <p className="text-xs tracking-[0.14em] text-[#8a7c73]">DIAGNOSIS</p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight">恋愛人格の深層分析</h1>
+          <p className="text-xs tracking-[0.14em] text-[#8a7c73]">SELF CHECK</p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight">結婚人格の自己分析</h1>
           <p className="mt-3 text-sm leading-relaxed text-[#675b54]">
-            60の質問を<strong className="font-semibold text-[#3a332f]">5問ずつ</strong>
+            相手を測るためではなく、あなた自身の恋愛の癖・未成熟さ・結婚で苦しくなりやすい理由を見える化します。
+            {total}問を<strong className="font-semibold text-[#3a332f]">{PART_SIZE}問ずつ</strong>
             進めます。直感で、当てはまる程度を選んでください。
           </p>
           <div className="mt-6 grid grid-cols-2 gap-2">
@@ -394,7 +406,7 @@ export default function DiagnosisPage() {
             </div>
             {showAlmostThere && (
               <p className="mt-3 text-xs leading-relaxed text-[#7a6d64]">
-                あと少しで結果レポートです。このパートも、直感のまま選んで大丈夫です。
+                あと少しで結婚人格の結果です。このパートも、直感のまま選んで大丈夫です。
               </p>
             )}
           </div>
@@ -480,7 +492,7 @@ export default function DiagnosisPage() {
                         >
                           {[1, 2, 3, 4, 5, 6, 7].map((n) => {
                             const meta = SCALE_BUTTON_META[n];
-                            const label = ANSWER_SCALE_LABELS[n];
+                            const label = scaleLabelForQuestion(q, n);
                             const selected =
                               rowPending !== null
                                 ? rowPending === n

@@ -16,9 +16,9 @@
     "__EMPTY": null,
     "final_code": "CSIAL",
     "gender": "male",
-    "character_name": "商社男子",
+    "character_name": "ロマンチスト",
     "result_template_key": "CSIAL_male",
-    "branch_rule": "CSIAL + male → 商社男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIAL + male → ロマンチスト。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "2",
@@ -37,9 +37,9 @@
     "__EMPTY": null,
     "final_code": "CSIAL",
     "gender": "female",
-    "character_name": "港区女子",
+    "character_name": "ロマンチスト",
     "result_template_key": "CSIAL_female",
-    "branch_rule": "CSIAL + female → 港区女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIAL + female → ロマンチスト。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "3",
@@ -47,7 +47,7 @@
     "axis": "親密性",
     "positive_type": "Passion",
     "negative_type": "Connection",
-    "weight": "3",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -58,9 +58,9 @@
     "__EMPTY": null,
     "final_code": "CSIAR",
     "gender": "male",
-    "character_name": "IT男子",
+    "character_name": "観察者",
     "result_template_key": "CSIAR_male",
-    "branch_rule": "CSIAR + male → IT男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIAR + male → 観察者。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "4",
@@ -79,9 +79,9 @@
     "__EMPTY": null,
     "final_code": "CSIAR",
     "gender": "female",
-    "character_name": "深夜女子",
+    "character_name": "観察者",
     "result_template_key": "CSIAR_female",
-    "branch_rule": "CSIAR + female → 深夜女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIAR + female → 観察者。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "5",
@@ -89,7 +89,7 @@
     "axis": "親密性",
     "positive_type": "Connection",
     "negative_type": "Passion",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -100,9 +100,9 @@
     "__EMPTY": null,
     "final_code": "CSIVL",
     "gender": "male",
-    "character_name": "美容師男子",
+    "character_name": "一匹狼",
     "result_template_key": "CSIVL_male",
-    "branch_rule": "CSIVL + male → 美容師男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIVL + male → 一匹狼。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "6",
@@ -121,9 +121,9 @@
     "__EMPTY": null,
     "final_code": "CSIVL",
     "gender": "female",
-    "character_name": "距離バグ女子",
+    "character_name": "一匹狼",
     "result_template_key": "CSIVL_female",
-    "branch_rule": "CSIVL + female → 距離バグ女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIVL + female → 一匹狼。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "7",
@@ -142,9 +142,9 @@
     "__EMPTY": null,
     "final_code": "CSIVR",
     "gender": "male",
-    "character_name": "弁護士男子",
+    "character_name": "策士",
     "result_template_key": "CSIVR_male",
-    "branch_rule": "CSIVR + male → 弁護士男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIVR + male → 策士。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "8",
@@ -163,9 +163,9 @@
     "__EMPTY": null,
     "final_code": "CSIVR",
     "gender": "female",
-    "character_name": "理性女子",
+    "character_name": "策士",
     "result_template_key": "CSIVR_female",
-    "branch_rule": "CSIVR + female → 理性女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSIVR + female → 策士。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "9",
@@ -184,9 +184,9 @@
     "__EMPTY": null,
     "final_code": "CSBAL",
     "gender": "male",
-    "character_name": "バンドマン男子",
+    "character_name": "甘え上手",
     "result_template_key": "CSBAL_male",
-    "branch_rule": "CSBAL + male → バンドマン男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBAL + male → 甘え上手。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "10",
@@ -194,7 +194,7 @@
     "axis": "親密性",
     "positive_type": "Passion",
     "negative_type": "Connection",
-    "weight": "3",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -205,9 +205,9 @@
     "__EMPTY": null,
     "final_code": "CSBAL",
     "gender": "female",
-    "character_name": "推し活女子",
+    "character_name": "甘え上手",
     "result_template_key": "CSBAL_female",
-    "branch_rule": "CSBAL + female → 推し活女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBAL + female → 甘え上手。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "11",
@@ -215,27 +215,6 @@
     "axis": "親密性",
     "positive_type": "Connection",
     "negative_type": "Passion",
-    "weight": "2",
-    "answer_1_score": "3",
-    "answer_2_score": "2",
-    "answer_3_score": "1",
-    "answer_4_score": "0",
-    "answer_5_score": "-1",
-    "answer_6_score": "-2",
-    "answer_7_score": "-3",
-    "__EMPTY": null,
-    "final_code": "CSBAR",
-    "gender": "male",
-    "character_name": "無口上司",
-    "result_template_key": "CSBAR_male",
-    "branch_rule": "CSBAR + male → 無口上司。result_templatesをcode+genderで参照"
-  },
-  {
-    "question_id": "12",
-    "category": "sex",
-    "axis": "親密性",
-    "positive_type": "Passion",
-    "negative_type": "Connection",
     "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
@@ -246,10 +225,31 @@
     "answer_7_score": "-3",
     "__EMPTY": null,
     "final_code": "CSBAR",
+    "gender": "male",
+    "character_name": "天邪鬼",
+    "result_template_key": "CSBAR_male",
+    "branch_rule": "CSBAR + male → 天邪鬼。result_templatesをcode+genderで参照"
+  },
+  {
+    "question_id": "12",
+    "category": "sex",
+    "axis": "親密性",
+    "positive_type": "Passion",
+    "negative_type": "Connection",
+    "weight": "2",
+    "answer_1_score": "3",
+    "answer_2_score": "2",
+    "answer_3_score": "1",
+    "answer_4_score": "0",
+    "answer_5_score": "-1",
+    "answer_6_score": "-2",
+    "answer_7_score": "-3",
+    "__EMPTY": null,
+    "final_code": "CSBAR",
     "gender": "female",
-    "character_name": "カフェ女子",
+    "character_name": "天邪鬼",
     "result_template_key": "CSBAR_female",
-    "branch_rule": "CSBAR + female → カフェ女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBAR + female → 天邪鬼。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "13",
@@ -268,9 +268,9 @@
     "__EMPTY": null,
     "final_code": "CSBVL",
     "gender": "male",
-    "character_name": "放浪男子",
+    "character_name": "カリスマ",
     "result_template_key": "CSBVL_male",
-    "branch_rule": "CSBVL + male → 放浪男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBVL + male → カリスマ。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "14",
@@ -289,9 +289,9 @@
     "__EMPTY": null,
     "final_code": "CSBVL",
     "gender": "female",
-    "character_name": "自由女子",
+    "character_name": "カリスマ",
     "result_template_key": "CSBVL_female",
-    "branch_rule": "CSBVL + female → 自由女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBVL + female → カリスマ。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "15",
@@ -310,9 +310,9 @@
     "__EMPTY": null,
     "final_code": "CSBVR",
     "gender": "male",
-    "character_name": "モテ男子",
+    "character_name": "放浪者",
     "result_template_key": "CSBVR_male",
-    "branch_rule": "CSBVR + male → モテ男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBVR + male → 放浪者。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "16",
@@ -320,7 +320,7 @@
     "axis": "金銭感覚",
     "positive_type": "Security",
     "negative_type": "Freedom",
-    "weight": "3",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -331,9 +331,9 @@
     "__EMPTY": null,
     "final_code": "CSBVR",
     "gender": "female",
-    "character_name": "夜職お姉さん",
+    "character_name": "放浪者",
     "result_template_key": "CSBVR_female",
-    "branch_rule": "CSBVR + female → 夜職お姉さん。result_templatesをcode+genderで参照"
+    "branch_rule": "CSBVR + female → 放浪者。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "17",
@@ -341,7 +341,7 @@
     "axis": "金銭感覚",
     "positive_type": "Freedom",
     "negative_type": "Security",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -352,9 +352,9 @@
     "__EMPTY": null,
     "final_code": "CFIAL",
     "gender": "male",
-    "character_name": "理性男子",
+    "character_name": "優等生",
     "result_template_key": "CFIAL_male",
-    "branch_rule": "CFIAL + male → 理性男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIAL + male → 優等生。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "18",
@@ -362,7 +362,7 @@
     "axis": "金銭感覚",
     "positive_type": "Freedom",
     "negative_type": "Security",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -373,9 +373,9 @@
     "__EMPTY": null,
     "final_code": "CFIAL",
     "gender": "female",
-    "character_name": "受付女子",
+    "character_name": "優等生",
     "result_template_key": "CFIAL_female",
-    "branch_rule": "CFIAL + female → 受付女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIAL + female → 優等生。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "19",
@@ -383,7 +383,7 @@
     "axis": "金銭感覚",
     "positive_type": "Freedom",
     "negative_type": "Security",
-    "weight": "1",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -394,9 +394,9 @@
     "__EMPTY": null,
     "final_code": "CFIAR",
     "gender": "male",
-    "character_name": "夜職男子",
+    "character_name": "気遣い屋",
     "result_template_key": "CFIAR_male",
-    "branch_rule": "CFIAR + male → 夜職男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIAR + male → 気遣い屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "20",
@@ -415,9 +415,9 @@
     "__EMPTY": null,
     "final_code": "CFIAR",
     "gender": "female",
-    "character_name": "献身女子",
+    "character_name": "気遣い屋",
     "result_template_key": "CFIAR_female",
-    "branch_rule": "CFIAR + female → 献身女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIAR + female → 気遣い屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "21",
@@ -436,9 +436,9 @@
     "__EMPTY": null,
     "final_code": "CFIVL",
     "gender": "male",
-    "character_name": "起業家男子",
+    "character_name": "夢みがち",
     "result_template_key": "CFIVL_male",
-    "branch_rule": "CFIVL + male → 起業家男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIVL + male → 夢みがち。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "22",
@@ -446,7 +446,7 @@
     "axis": "金銭感覚",
     "positive_type": "Freedom",
     "negative_type": "Security",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -457,9 +457,9 @@
     "__EMPTY": null,
     "final_code": "CFIVL",
     "gender": "female",
-    "character_name": "女社長女子",
+    "character_name": "夢みがち",
     "result_template_key": "CFIVL_female",
-    "branch_rule": "CFIVL + female → 女社長女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIVL + female → 夢みがち。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "23",
@@ -478,9 +478,9 @@
     "__EMPTY": null,
     "final_code": "CFIVR",
     "gender": "male",
-    "character_name": "カメラマン男子",
+    "character_name": "ムードメーカー",
     "result_template_key": "CFIVR_male",
-    "branch_rule": "CFIVR + male → カメラマン男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIVR + male → ムードメーカー。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "24",
@@ -499,9 +499,9 @@
     "__EMPTY": null,
     "final_code": "CFIVR",
     "gender": "female",
-    "character_name": "編集女子",
+    "character_name": "ムードメーカー",
     "result_template_key": "CFIVR_female",
-    "branch_rule": "CFIVR + female → 編集女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFIVR + female → ムードメーカー。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "25",
@@ -520,9 +520,9 @@
     "__EMPTY": null,
     "final_code": "CFBAL",
     "gender": "male",
-    "character_name": "整体師男子",
+    "character_name": "参謀",
     "result_template_key": "CFBAL_male",
-    "branch_rule": "CFBAL + male → 整体師男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBAL + male → 参謀。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "26",
@@ -541,9 +541,9 @@
     "__EMPTY": null,
     "final_code": "CFBAL",
     "gender": "female",
-    "character_name": "保育士女子",
+    "character_name": "参謀",
     "result_template_key": "CFBAL_female",
-    "branch_rule": "CFBAL + female → 保育士女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBAL + female → 参謀。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "27",
@@ -562,9 +562,9 @@
     "__EMPTY": null,
     "final_code": "CFBAR",
     "gender": "male",
-    "character_name": "広告男子",
+    "character_name": "世話焼き",
     "result_template_key": "CFBAR_male",
-    "branch_rule": "CFBAR + male → 広告男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBAR + male → 世話焼き。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "28",
@@ -583,9 +583,9 @@
     "__EMPTY": null,
     "final_code": "CFBAR",
     "gender": "female",
-    "character_name": "強がり女子",
+    "character_name": "世話焼き",
     "result_template_key": "CFBAR_female",
-    "branch_rule": "CFBAR + female → 強がり女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBAR + female → 世話焼き。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "29",
@@ -604,9 +604,9 @@
     "__EMPTY": null,
     "final_code": "CFBVL",
     "gender": "male",
-    "character_name": "医者男子",
+    "character_name": "ヒーロー",
     "result_template_key": "CFBVL_male",
-    "branch_rule": "CFBVL + male → 医者男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBVL + male → ヒーロー。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "30",
@@ -625,9 +625,9 @@
     "__EMPTY": null,
     "final_code": "CFBVL",
     "gender": "female",
-    "character_name": "女医女子",
+    "character_name": "ヒーロー",
     "result_template_key": "CFBVL_female",
-    "branch_rule": "CFBVL + female → 女医女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBVL + female → ヒーロー。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "31",
@@ -646,9 +646,9 @@
     "__EMPTY": null,
     "final_code": "CFBVR",
     "gender": "male",
-    "character_name": "教師男子",
+    "character_name": "末っ子気質",
     "result_template_key": "CFBVR_male",
-    "branch_rule": "CFBVR + male → 教師男子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBVR + male → 末っ子気質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "32",
@@ -667,9 +667,9 @@
     "__EMPTY": null,
     "final_code": "CFBVR",
     "gender": "female",
-    "character_name": "教師女子",
+    "character_name": "末っ子気質",
     "result_template_key": "CFBVR_female",
-    "branch_rule": "CFBVR + female → 教師女子。result_templatesをcode+genderで参照"
+    "branch_rule": "CFBVR + female → 末っ子気質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "33",
@@ -688,9 +688,9 @@
     "__EMPTY": null,
     "final_code": "PSIAL",
     "gender": "male",
-    "character_name": "公務員男子",
+    "character_name": "姫気質",
     "result_template_key": "PSIAL_male",
-    "branch_rule": "PSIAL + male → 公務員男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIAL + male → 姫気質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "34",
@@ -709,9 +709,9 @@
     "__EMPTY": null,
     "final_code": "PSIAL",
     "gender": "female",
-    "character_name": "家庭女子",
+    "character_name": "姫気質",
     "result_template_key": "PSIAL_female",
-    "branch_rule": "PSIAL + female → 家庭女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIAL + female → 姫気質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "35",
@@ -719,7 +719,7 @@
     "axis": "孤独耐性",
     "positive_type": "Independent",
     "negative_type": "Bond",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -730,9 +730,9 @@
     "__EMPTY": null,
     "final_code": "PSIAR",
     "gender": "male",
-    "character_name": "消防士男子",
+    "character_name": "聞き上手",
     "result_template_key": "PSIAR_male",
-    "branch_rule": "PSIAR + male → 消防士男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIAR + male → 聞き上手。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "36",
@@ -751,9 +751,9 @@
     "__EMPTY": null,
     "final_code": "PSIAR",
     "gender": "female",
-    "character_name": "シンママ女子",
+    "character_name": "聞き上手",
     "result_template_key": "PSIAR_female",
-    "branch_rule": "PSIAR + female → シンママ女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIAR + female → 聞き上手。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "37",
@@ -761,7 +761,7 @@
     "axis": "承認欲求",
     "positive_type": "Approval",
     "negative_type": "Value",
-    "weight": "3",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -772,9 +772,9 @@
     "__EMPTY": null,
     "final_code": "PSIVL",
     "gender": "male",
-    "character_name": "料理男子",
+    "character_name": "寂しがり屋",
     "result_template_key": "PSIVL_male",
-    "branch_rule": "PSIVL + male → 料理男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIVL + male → 寂しがり屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "38",
@@ -793,9 +793,9 @@
     "__EMPTY": null,
     "final_code": "PSIVL",
     "gender": "female",
-    "character_name": "医療事務女子",
+    "character_name": "寂しがり屋",
     "result_template_key": "PSIVL_female",
-    "branch_rule": "PSIVL + female → 医療事務女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIVL + female → 寂しがり屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "39",
@@ -814,9 +814,9 @@
     "__EMPTY": null,
     "final_code": "PSIVR",
     "gender": "male",
-    "character_name": "金融男子",
+    "character_name": "自由人",
     "result_template_key": "PSIVR_male",
-    "branch_rule": "PSIVR + male → 金融男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIVR + male → 自由人。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "40",
@@ -835,9 +835,9 @@
     "__EMPTY": null,
     "final_code": "PSIVR",
     "gender": "female",
-    "character_name": "アパレル女子",
+    "character_name": "自由人",
     "result_template_key": "PSIVR_female",
-    "branch_rule": "PSIVR + female → アパレル女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSIVR + female → 自由人。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "41",
@@ -845,7 +845,7 @@
     "axis": "承認欲求",
     "positive_type": "Value",
     "negative_type": "Approval",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -856,9 +856,9 @@
     "__EMPTY": null,
     "final_code": "PSBAL",
     "gender": "male",
-    "character_name": "映像男子",
+    "character_name": "負けず嫌い",
     "result_template_key": "PSBAL_male",
-    "branch_rule": "PSBAL + male → 映像男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBAL + male → 負けず嫌い。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "42",
@@ -866,7 +866,7 @@
     "axis": "承認欲求",
     "positive_type": "Value",
     "negative_type": "Approval",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -877,9 +877,9 @@
     "__EMPTY": null,
     "final_code": "PSBAL",
     "gender": "female",
-    "character_name": "広報女子",
+    "character_name": "負けず嫌い",
     "result_template_key": "PSBAL_female",
-    "branch_rule": "PSBAL + female → 広報女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBAL + female → 負けず嫌い。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "43",
@@ -898,9 +898,9 @@
     "__EMPTY": null,
     "final_code": "PSBAR",
     "gender": "male",
-    "character_name": "営業男子",
+    "character_name": "心配性",
     "result_template_key": "PSBAR_male",
-    "branch_rule": "PSBAR + male → 営業男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBAR + male → 心配性。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "44",
@@ -908,7 +908,7 @@
     "axis": "承認欲求",
     "positive_type": "Approval",
     "negative_type": "Value",
-    "weight": "3",
+    "weight": "2",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -919,9 +919,9 @@
     "__EMPTY": null,
     "final_code": "PSBAR",
     "gender": "female",
-    "character_name": "美容部員女子",
+    "character_name": "心配性",
     "result_template_key": "PSBAR_female",
-    "branch_rule": "PSBAR + female → 美容部員女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBAR + female → 心配性。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "45",
@@ -940,9 +940,9 @@
     "__EMPTY": null,
     "final_code": "PSBVL",
     "gender": "male",
-    "character_name": "アパレル男子",
+    "character_name": "マイペース",
     "result_template_key": "PSBVL_male",
-    "branch_rule": "PSBVL + male → アパレル男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBVL + male → マイペース。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "46",
@@ -950,7 +950,7 @@
     "axis": "承認欲求",
     "positive_type": "Value",
     "negative_type": "Approval",
-    "weight": "2",
+    "weight": "3",
     "answer_1_score": "3",
     "answer_2_score": "2",
     "answer_3_score": "1",
@@ -961,9 +961,9 @@
     "__EMPTY": null,
     "final_code": "PSBVL",
     "gender": "female",
-    "character_name": "ヨガ女子",
+    "character_name": "マイペース",
     "result_template_key": "PSBVL_female",
-    "branch_rule": "PSBVL + female → ヨガ女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBVL + female → マイペース。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "47",
@@ -982,9 +982,9 @@
     "__EMPTY": null,
     "final_code": "PSBVR",
     "gender": "male",
-    "character_name": "カフェ男子",
+    "character_name": "かまって屋",
     "result_template_key": "PSBVR_male",
-    "branch_rule": "PSBVR + male → カフェ男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBVR + male → かまって屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "48",
@@ -1003,9 +1003,9 @@
     "__EMPTY": null,
     "final_code": "PSBVR",
     "gender": "female",
-    "character_name": "秘書女子",
+    "character_name": "かまって屋",
     "result_template_key": "PSBVR_female",
-    "branch_rule": "PSBVR + female → 秘書女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PSBVR + female → かまって屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "49",
@@ -1024,9 +1024,9 @@
     "__EMPTY": null,
     "final_code": "PFIAL",
     "gender": "male",
-    "character_name": "編集男子",
+    "character_name": "尽くし屋",
     "result_template_key": "PFIAL_male",
-    "branch_rule": "PFIAL + male → 編集男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIAL + male → 尽くし屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "50",
@@ -1045,9 +1045,9 @@
     "__EMPTY": null,
     "final_code": "PFIAL",
     "gender": "female",
-    "character_name": "書店女子",
+    "character_name": "尽くし屋",
     "result_template_key": "PFIAL_female",
-    "branch_rule": "PFIAL + female → 書店女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIAL + female → 尽くし屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "51",
@@ -1066,9 +1066,9 @@
     "__EMPTY": null,
     "final_code": "PFIAR",
     "gender": "male",
-    "character_name": "ジム男子",
+    "character_name": "ミステリアス",
     "result_template_key": "PFIAR_male",
-    "branch_rule": "PFIAR + male → ジム男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIAR + male → ミステリアス。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "52",
@@ -1087,9 +1087,9 @@
     "__EMPTY": null,
     "final_code": "PFIAR",
     "gender": "female",
-    "character_name": "ネイリスト女子",
+    "character_name": "ミステリアス",
     "result_template_key": "PFIAR_female",
-    "branch_rule": "PFIAR + female → ネイリスト女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIAR + female → ミステリアス。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "53",
@@ -1108,9 +1108,9 @@
     "__EMPTY": null,
     "final_code": "PFIVL",
     "gender": "male",
-    "character_name": "建築男子",
+    "character_name": "真面目君",
     "result_template_key": "PFIVL_male",
-    "branch_rule": "PFIVL + male → 建築男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIVL + male → 真面目君。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "54",
@@ -1129,9 +1129,9 @@
     "__EMPTY": null,
     "final_code": "PFIVL",
     "gender": "female",
-    "character_name": "離婚女子",
+    "character_name": "真面目君",
     "result_template_key": "PFIVL_female",
-    "branch_rule": "PFIVL + female → 離婚女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIVL + female → 真面目君。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "55",
@@ -1150,9 +1150,9 @@
     "__EMPTY": null,
     "final_code": "PFIVR",
     "gender": "male",
-    "character_name": "夜勤男子",
+    "character_name": "夢追い人",
     "result_template_key": "PFIVR_male",
-    "branch_rule": "PFIVR + male → 夜勤男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIVR + male → 夢追い人。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "56",
@@ -1171,9 +1171,9 @@
     "__EMPTY": null,
     "final_code": "PFIVR",
     "gender": "female",
-    "character_name": "バーテンダー女子",
+    "character_name": "夢追い人",
     "result_template_key": "PFIVR_female",
-    "branch_rule": "PFIVR + female → バーテンダー女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFIVR + female → 夢追い人。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "57",
@@ -1192,9 +1192,9 @@
     "__EMPTY": null,
     "final_code": "PFBAL",
     "gender": "male",
-    "character_name": "介護士男子",
+    "character_name": "愛され体質",
     "result_template_key": "PFBAL_male",
-    "branch_rule": "PFBAL + male → 介護士男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBAL + male → 愛され体質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "58",
@@ -1213,9 +1213,9 @@
     "__EMPTY": null,
     "final_code": "PFBAL",
     "gender": "female",
-    "character_name": "看護師女子",
+    "character_name": "愛され体質",
     "result_template_key": "PFBAL_female",
-    "branch_rule": "PFBAL + female → 看護師女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBAL + female → 愛され体質。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "59",
@@ -1234,9 +1234,9 @@
     "__EMPTY": null,
     "final_code": "PFBAR",
     "gender": "male",
-    "character_name": "大学生男子",
+    "character_name": "ツンデレ",
     "result_template_key": "PFBAR_male",
-    "branch_rule": "PFBAR + male → 大学生男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBAR + male → ツンデレ。result_templatesをcode+genderで参照"
   },
   {
     "question_id": "60",
@@ -1255,9 +1255,9 @@
     "__EMPTY": null,
     "final_code": "PFBAR",
     "gender": "female",
-    "character_name": "起業女子",
+    "character_name": "ツンデレ",
     "result_template_key": "PFBAR_female",
-    "branch_rule": "PFBAR + female → 起業女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBAR + female → ツンデレ。result_templatesをcode+genderで参照"
   },
   {
     "question_id": null,
@@ -1276,9 +1276,9 @@
     "__EMPTY": null,
     "final_code": "PFBVL",
     "gender": "male",
-    "character_name": "離婚男子",
+    "character_name": "こじらせ屋",
     "result_template_key": "PFBVL_male",
-    "branch_rule": "PFBVL + male → 離婚男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBVL + male → こじらせ屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": null,
@@ -1297,9 +1297,9 @@
     "__EMPTY": null,
     "final_code": "PFBVL",
     "gender": "female",
-    "character_name": "広告女子",
+    "character_name": "こじらせ屋",
     "result_template_key": "PFBVL_female",
-    "branch_rule": "PFBVL + female → 広告女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBVL + female → こじらせ屋。result_templatesをcode+genderで参照"
   },
   {
     "question_id": null,
@@ -1318,9 +1318,9 @@
     "__EMPTY": null,
     "final_code": "PFBVR",
     "gender": "male",
-    "character_name": "境界男子",
+    "character_name": "癒し系",
     "result_template_key": "PFBVR_male",
-    "branch_rule": "PFBVR + male → 境界男子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBVR + male → 癒し系。result_templatesをcode+genderで参照"
   },
   {
     "question_id": null,
@@ -1339,8 +1339,8 @@
     "__EMPTY": null,
     "final_code": "PFBVR",
     "gender": "female",
-    "character_name": "既読女子",
+    "character_name": "癒し系",
     "result_template_key": "PFBVR_female",
-    "branch_rule": "PFBVR + female → 既読女子。result_templatesをcode+genderで参照"
+    "branch_rule": "PFBVR + female → 癒し系。result_templatesをcode+genderで参照"
   }
 ]

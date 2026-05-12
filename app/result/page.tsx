@@ -4,148 +4,89 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Lock, Sparkles } from "lucide-react";
-import logicData from "@/app/data/logic.json";
-import typesData from "@/app/data/types.json";
-import charactersData from "@/app/data/characters.json";
-import templatesData from "@/app/data/result_templates.json";
+import { computeDiagnosisResult, type DiagnosisResult } from "@/app/lib/compute-diagnosis-result";
 
-type Gender = "male" | "female";
-type StoredAnswer = { questionId: number; answer: number };
-type Payload = { gender: Gender; answers: StoredAnswer[] };
-type LogicRow = {
-  question_id: string | null;
-  positive_type: string | null;
-  negative_type: string | null;
-  weight: string | null;
-  [key: string]: string | null;
-};
-type Character = {
-  code: string;
-  gender: Gender;
-  character_name: string;
-  archetype: string;
-  expression_vibe: string;
-  love_behavior: string;
-};
-type Template = {
-  code: string;
-  gender: Gender;
-  headline: string;
-  love_type: string;
-  marriage_type: string;
-  gap: string;
-  collapse_pattern: string;
-  long_term_secret: string;
-  final_message: string;
-};
-type TypeRow = {
-  code: string;
-  relationship_theme: string;
-};
+type JsonRow = Record<string, string | null | undefined>;
 
-type ResultState = {
-  gender: Gender;
-  code: string;
-  axisSignature: string;
-  typeInfo?: TypeRow;
-  character: Character;
-  template: Template;
-};
+function pick(row: JsonRow | undefined, key: string): string {
+  if (!row) return "";
+  const v = row[key];
+  if (typeof v === "string") return v.trim();
+  if (v == null) return "";
+  return String(v).trim();
+}
 
-const logicRows = logicData as LogicRow[];
-const typesRows = typesData as TypeRow[];
-const characterRows = charactersData as Character[];
-const templateRows = templatesData as Template[];
+/** result_templates.json を優先。headline はヒーローで表示するため一覧からは除外 */
+const TEMPLATE_SECTION_ORDER: { title: string; key: string }[] = [
+  { title: "幸せな結婚のためのアドバイス", key: "marriage_advice" },
+  { title: "幸せな結婚のために必要な成長", key: "growth_message" },
+  { title: "苦しくなりやすい点（注意）", key: "warning" },
+  { title: "最後にあなたへ", key: "final_message" },
+  { title: "あなたの恋愛の癖（傾向）", key: "love_type" },
+  { title: "結婚生活で出やすい傾向", key: "marriage_type" },
+  { title: "交際と結婚のギャップ", key: "gap" },
+  { title: "結婚で苦しくなりやすいパターン", key: "collapse_pattern" },
+  { title: "気持ちが冷めやすいところ", key: "cooling_pattern" },
+  { title: "本音の望み", key: "hidden_desire" },
+  { title: "相性が合いやすい相手像（参考）", key: "best_partner" },
+  { title: "長く整えるためのヒント", key: "long_term_secret" },
+];
 
-const codeTypePairs = [
-  ["Connection", "Passion", "C", "P"],
-  ["Security", "Freedom", "S", "F"],
-  ["Independent", "Bond", "I", "B"],
-  ["Approval", "Value", "A", "V"],
-  ["Lead", "Receive", "L", "R"],
-] as const;
+function typeField(result: DiagnosisResult, key: "relationship_theme" | "core_desire"): string {
+  const t = result.typeInfo;
+  if (!t) return "";
+  const v = t[key];
+  return typeof v === "string" ? v.trim() : "";
+}
 
-function computeResult(): ResultState | null {
-  if (typeof window === "undefined") return null;
-  const raw = window.sessionStorage.getItem("diagnosisPayload");
-  if (!raw) return null;
+function buildLockedSections(result: DiagnosisResult): { title: string; body: string }[] {
+  const out: { title: string; body: string }[] = [];
+  const seen = new Set<string>();
 
-  try {
-    const parsed = JSON.parse(raw) as Payload;
-    const answerMap = new Map(parsed.answers.map((item) => [String(item.questionId), item.answer]));
-    const scoreMap: Record<string, number> = {};
-
-    for (const row of logicRows) {
-      if (!row.question_id) continue;
-      const answer = answerMap.get(row.question_id);
-      if (!answer) continue;
-
-      const score = Number(row[`answer_${answer}_score`] ?? 0) * Number(row.weight ?? 1);
-      const positive = row.positive_type ?? "";
-      const negative = row.negative_type ?? "";
-
-      if (score >= 0 && positive) {
-        scoreMap[positive] = (scoreMap[positive] ?? 0) + score;
-      } else if (score < 0 && negative) {
-        scoreMap[negative] = (scoreMap[negative] ?? 0) + Math.abs(score);
-      }
-    }
-
-    const code = codeTypePairs
-      .map(([leftType, rightType, leftCode, rightCode]) =>
-        (scoreMap[leftType] ?? 0) >= (scoreMap[rightType] ?? 0) ? leftCode : rightCode
-      )
-      .join("");
-
-    const typeInfo = typesRows.find((item) => item.code === code);
-    const character = characterRows.find(
-      (item) => item.code === code && item.gender === parsed.gender
-    );
-    const template = templateRows.find(
-      (item) => item.code === code && item.gender === parsed.gender
-    );
-
-    if (!character || !template) return null;
-
-    const axisRanks = codeTypePairs.map(([leftType, rightType], idx) => {
-      const left = scoreMap[leftType] ?? 0;
-      const right = scoreMap[rightType] ?? 0;
-      const intensity = Math.min(3, Math.max(1, Math.round(Math.abs(left - right) / 6) + 1));
-      return `${String.fromCharCode(65 + idx)}${intensity}`;
-    });
-
-    return {
-      gender: parsed.gender,
-      code,
-      axisSignature: axisRanks.join("-"),
-      typeInfo,
-      character,
-      template,
-    };
-  } catch {
-    return null;
+  for (const def of TEMPLATE_SECTION_ORDER) {
+    const body = pick(result.template, def.key);
+    if (!body) continue;
+    const dedupeKey = `${def.title}:${body}`;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+    out.push({ title: def.title, body });
   }
+
+  const theme = typeField(result, "relationship_theme");
+  if (theme) {
+    const dedupeKey = `結婚で見えやすい関係のテーマ:${theme}`;
+    if (!seen.has(dedupeKey)) {
+      seen.add(dedupeKey);
+      out.push({ title: "結婚で見えやすい関係のテーマ", body: theme });
+    }
+  }
+
+  const core = typeField(result, "core_desire");
+  if (core) {
+    const dedupeKey = `結婚人格の核になりやすい欲求:${core}`;
+    if (!seen.has(dedupeKey)) {
+      seen.add(dedupeKey);
+      out.push({ title: "結婚人格の核になりやすい欲求", body: core });
+    }
+  }
+
+  return out;
 }
 
 export default function ResultPage() {
-  const [result] = useState<ResultState | null>(() => computeResult());
+  const [result] = useState<DiagnosisResult | null>(() => computeDiagnosisResult());
 
-  const lockedSections = useMemo(() => {
-    if (!result) return [];
-    const { character, template, typeInfo } = result;
-    return [
-      { title: "恋愛で出やすい傾向", body: template.love_type },
-      { title: "結婚生活で出やすい傾向", body: template.marriage_type },
-      { title: "恋愛と結婚のズレ", body: template.gap },
-      { title: "関係が壊れやすいパターン", body: template.collapse_pattern },
-      { title: "長く幸せでいるためのヒント", body: template.long_term_secret },
-      { title: "無意識の恋愛行動", body: character.love_behavior },
-      { title: "雰囲気・印象の深読み", body: character.expression_vibe },
-      ...(typeInfo
-        ? [{ title: "相性・関係性のテーマ", body: typeInfo.relationship_theme }]
-        : []),
-      { title: "最後にあなたへ", body: template.final_message },
-    ];
+  const lockedSections = useMemo(() => (result ? buildLockedSections(result) : []), [result]);
+
+  const headline = useMemo(() => {
+    if (!result) return "";
+    const h = pick(result.template, "headline");
+    return h || `${result.character.character_name}：結婚人格の結果プレビュー`;
+  }, [result]);
+
+  const themeSubtitle = useMemo(() => {
+    if (!result) return "";
+    return typeField(result, "relationship_theme") || typeField(result, "core_desire");
   }, [result]);
 
   if (!result) {
@@ -171,14 +112,14 @@ export default function ResultPage() {
       <motion.div
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
         className="mx-auto max-w-md"
       >
         <div className="rounded-[1.75rem] border border-[#efe6dc] bg-white p-6 shadow-[0_20px_56px_rgba(35,25,15,0.1)] sm:p-8">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-[#f4ebe3] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7a6d64]">
               <Sparkles className="h-3 w-3" strokeWidth={2} />
-              64タイプ診断
+              結婚人格分析 · 32キャラ
             </span>
             <span className="rounded-full border border-[#e8ddd2] bg-[#fffdfa] px-2.5 py-1 text-[10px] font-medium tabular-nums text-[#8a7c73]">
               {result.code} · {result.axisSignature}
@@ -186,22 +127,21 @@ export default function ResultPage() {
           </div>
 
           <p className="mt-6 text-center text-xs font-medium tracking-[0.2em] text-[#8a7c73]">
-            あなたのタイプ
+            あなたの結婚人格
           </p>
           <h1 className="mt-2 text-center text-3xl font-semibold leading-tight tracking-tight text-[#1f1a17] sm:text-[2rem]">
             {result.character.character_name}
           </h1>
-          <p className="mt-3 text-center text-base font-medium text-[#5c534d]">
-            あなたは「{result.character.character_name}」タイプです
-          </p>
-          <p className="mx-auto mt-2 max-w-sm text-center text-sm leading-relaxed text-[#7a6d64]">
-            {result.character.archetype}
-          </p>
+          {themeSubtitle ? (
+            <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-[#7a6d64]">
+              {themeSubtitle}
+            </p>
+          ) : null}
 
           <div className="mt-8 rounded-2xl border border-[#ebe3d9] bg-gradient-to-b from-[#fffdfa] to-[#f9f4ee] px-5 py-6 text-center shadow-inner">
             <p className="text-[11px] font-medium tracking-[0.18em] text-[#9a8b82]">FREE PREVIEW</p>
             <p className="mx-auto mt-4 max-w-xs text-lg font-semibold leading-snug text-[#2a2522] sm:text-xl">
-              {result.template.headline}
+              {headline}
             </p>
           </div>
 
@@ -211,14 +151,20 @@ export default function ResultPage() {
 
           <div className="relative mt-3 min-h-[22rem] overflow-hidden rounded-2xl border border-[#ebe3d9] bg-[#faf6f1] sm:min-h-[24rem]">
             <div className="pointer-events-none space-y-4 p-5 select-none">
-              {lockedSections.map((block) => (
-                <div key={block.title}>
-                  <p className="text-xs font-semibold text-[#6f645d]">{block.title}</p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[#4a423c] blur-[5px]">
-                    {block.body}
-                  </p>
-                </div>
-              ))}
+              {lockedSections.length > 0 ? (
+                lockedSections.map((block) => (
+                  <div key={`${block.title}-${block.body.slice(0, 24)}`}>
+                    <p className="text-xs font-semibold text-[#6f645d]">{block.title}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-[#4a423c] blur-[5px]">
+                      {block.body}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-[#7a6d64] blur-[5px]">
+                  レポート本文は有料で全文を解放したときに表示されます。
+                </p>
+              )}
             </div>
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-10% via-[#fbf7f2]/65 to-[#fbf7f2]" />
@@ -231,7 +177,7 @@ export default function ResultPage() {
                 有料で全文を解放
               </p>
               <p className="mt-1 max-w-[17rem] text-center text-xs leading-relaxed text-[#7a6d64]">
-                恋愛・結婚のズレ、崩れやすいパターン、長続きの秘訣まで一気に読めます。
+                恋愛の癖、結婚で苦しくなる理由、幸せな結婚に向けた成長のヒントまで一気に読めます。
               </p>
             </div>
           </div>
