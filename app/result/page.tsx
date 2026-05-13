@@ -18,8 +18,8 @@ function pick(row: JsonRow | undefined, key: string): string {
 
 /** result_templates.json を優先。headline はヒーローで表示するため一覧からは除外 */
 const TEMPLATE_SECTION_ORDER: { title: string; key: string }[] = [
-  { title: "幸せな結婚のためのアドバイス", key: "marriage_advice" },
-  { title: "幸せな結婚のために必要な成長", key: "growth_message" },
+  { title: "幸せな結婚のために、あなたが成長すべきこと", key: "growth_message" },
+  { title: "結婚で苦しくならないための具体的な行動", key: "marriage_advice" },
   { title: "苦しくなりやすい点（注意）", key: "warning" },
   { title: "最後にあなたへ", key: "final_message" },
   { title: "あなたの恋愛の癖（傾向）", key: "love_type" },
