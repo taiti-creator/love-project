@@ -71,28 +71,28 @@ export default function Page() {
           initial="initial"
           animate="animate"
         >
-          <motion.p
-            variants={fadeUp}
-            className="text-[11px] font-medium tracking-[0.22em] text-[#8a7c73] sm:text-xs"
-          >
-            幸せな結婚のための自己分析 · 32キャラ
-          </motion.p>
           <motion.div
             variants={fadeUp}
-            className="mx-auto mt-5 h-px w-10 rounded-full bg-gradient-to-r from-transparent via-[#c9bfb5] to-transparent sm:mt-6"
+            className="mx-auto h-px w-10 rounded-full bg-gradient-to-r from-transparent via-[#c9bfb5] to-transparent"
             aria-hidden
           />
           <motion.h1
             variants={fadeUp}
-            className="mx-auto mt-6 max-w-[19rem] text-balance text-center sm:mt-7 sm:max-w-[24rem] md:max-w-xl"
+            className="mx-auto mt-5 max-w-[22rem] text-balance text-center text-[1.75rem] font-semibold leading-[1.22] tracking-[-0.03em] text-[#1f1a17] sm:mt-6 sm:max-w-[26rem] sm:text-[2.375rem] sm:leading-[1.18] md:max-w-2xl md:text-[2.875rem] md:leading-[1.15]"
           >
-            <span className="block text-[1.5625rem] font-semibold leading-[1.4] tracking-[-0.02em] text-[#1f1a17] sm:text-[2.125rem] sm:leading-[1.32] md:text-4xl md:leading-[1.25]">
+            結婚MBTI・32キャラ診断
+          </motion.h1>
+          <motion.h2
+            variants={fadeUp}
+            className="mx-auto mt-7 max-w-[19rem] text-balance text-center sm:mt-8 sm:max-w-[24rem] md:max-w-xl"
+          >
+            <span className="block text-[1.375rem] font-semibold leading-[1.45] tracking-[-0.02em] text-[#1f1a17] sm:text-[1.625rem] sm:leading-[1.4] md:text-[1.875rem] md:leading-[1.38]">
               あなたの「好き」は、
             </span>
-            <span className="mt-1 block text-[1.5625rem] font-semibold leading-[1.4] tracking-[-0.02em] text-[#1f1a17] sm:mt-1.5 sm:text-[2.125rem] sm:leading-[1.32] md:text-4xl md:leading-[1.25]">
+            <span className="mt-1 block text-[1.375rem] font-semibold leading-[1.45] tracking-[-0.02em] text-[#1f1a17] sm:mt-1.5 sm:text-[1.625rem] sm:leading-[1.4] md:text-[1.875rem] md:leading-[1.38]">
               本当にあなたを幸せにしていますか？
             </span>
-          </motion.h1>
+          </motion.h2>
           <motion.p
             variants={fadeUp}
             className="mx-auto mt-7 max-w-sm text-[15px] leading-[1.75] text-[#5c534d] sm:mt-8 sm:text-base sm:leading-[1.72]"

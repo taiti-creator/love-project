@@ -101,7 +101,7 @@ function mergeTemplate(
   typeRow: TypeRow | undefined
 ): JsonRow {
   if (tpl && Object.keys(tpl).length > 0) return tpl;
-  const headline = `${code} タイプ`;
+  const headline = `${code}・結婚MBTI`;
   const genderLine =
     gender === "male" ? str(typeRow?.male_summary) : str(typeRow?.female_summary);
   return {

@@ -22,7 +22,7 @@ const TEMPLATE_SECTION_ORDER: { title: string; key: string }[] = [
   { title: "結婚で苦しくならないための具体的な行動", key: "marriage_advice" },
   { title: "苦しくなりやすい点（注意）", key: "warning" },
   { title: "最後にあなたへ", key: "final_message" },
-  { title: "あなたの恋愛の癖（傾向）", key: "love_type" },
+  { title: "交際で出やすい反応（クセ）", key: "love_type" },
   { title: "結婚生活で出やすい傾向", key: "marriage_type" },
   { title: "交際と結婚のギャップ", key: "gap" },
   { title: "結婚で苦しくなりやすいパターン", key: "collapse_pattern" },
@@ -63,10 +63,10 @@ function buildLockedSections(result: DiagnosisResult): { title: string; body: st
 
   const core = typeField(result, "core_desire");
   if (core) {
-    const dedupeKey = `結婚人格の核になりやすい欲求:${core}`;
+    const dedupeKey = `結婚MBTIで見えやすい核の欲求:${core}`;
     if (!seen.has(dedupeKey)) {
       seen.add(dedupeKey);
-      out.push({ title: "結婚人格の核になりやすい欲求", body: core });
+      out.push({ title: "結婚MBTIで見えやすい核の欲求", body: core });
     }
   }
 
@@ -81,7 +81,7 @@ export default function ResultPage() {
   const headline = useMemo(() => {
     if (!result) return "";
     const h = pick(result.template, "headline");
-    return h || `${result.character.character_name}：結婚人格の結果プレビュー`;
+    return h || `${result.character.character_name}：結婚MBTIの結果プレビュー`;
   }, [result]);
 
   const themeSubtitle = useMemo(() => {
@@ -116,10 +116,13 @@ export default function ResultPage() {
         className="mx-auto max-w-md"
       >
         <div className="rounded-[1.75rem] border border-[#efe6dc] bg-white p-6 shadow-[0_20px_56px_rgba(35,25,15,0.1)] sm:p-8">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#f4ebe3] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7a6d64]">
+          <h1 className="mx-auto max-w-sm text-balance text-center text-[1.5rem] font-semibold leading-snug tracking-[-0.02em] text-[#1f1a17] sm:max-w-md sm:text-[1.875rem] sm:leading-tight md:text-[2rem]">
+            結婚MBTI・32キャラ診断
+          </h1>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#f4ebe3] px-2.5 py-1 text-[10px] font-semibold tracking-wide text-[#7a6d64]">
               <Sparkles className="h-3 w-3" strokeWidth={2} />
-              結婚人格分析 · 32キャラ
+              結果
             </span>
             <span className="rounded-full border border-[#e8ddd2] bg-[#fffdfa] px-2.5 py-1 text-[10px] font-medium tabular-nums text-[#8a7c73]">
               {result.code} · {result.axisSignature}
@@ -127,11 +130,11 @@ export default function ResultPage() {
           </div>
 
           <p className="mt-6 text-center text-xs font-medium tracking-[0.2em] text-[#8a7c73]">
-            あなたの結婚人格
+            あなたの結婚MBTI
           </p>
-          <h1 className="mt-2 text-center text-3xl font-semibold leading-tight tracking-tight text-[#1f1a17] sm:text-[2rem]">
+          <h2 className="mt-2 text-center text-3xl font-semibold leading-tight tracking-tight text-[#1f1a17] sm:text-[2rem]">
             {result.character.character_name}
-          </h1>
+          </h2>
           {themeSubtitle ? (
             <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-[#7a6d64]">
               {themeSubtitle}
@@ -177,7 +180,7 @@ export default function ResultPage() {
                 有料で全文を解放
               </p>
               <p className="mt-1 max-w-[17rem] text-center text-xs leading-relaxed text-[#7a6d64]">
-                恋愛の癖、結婚で苦しくなる理由、幸せな結婚に向けた成長のヒントまで一気に読めます。
+                交際のクセ、結婚で苦しくなる理由、幸せな結婚に向けた成長のヒントまで一気に読めます。
               </p>
             </div>
           </div>

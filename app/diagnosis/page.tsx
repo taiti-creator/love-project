@@ -22,10 +22,10 @@ type StoredAnswer = {
 const PART_SIZE = 5;
 
 const loadingMessages = [
-  "結婚人格の傾向を読み取っています…",
+  "結婚MBTIの傾向を読み取っています…",
   "恋愛の癖と、結婚で苦しくなる理由を整理中…",
   "未成熟さが出やすいパターンを照合中…",
-  "あなた自身の分析レポートを生成中…",
+  "結婚MBTIの結果を生成しています…",
 ];
 
 /** questions.json の category キー → パート見出し（なければキーをそのまま表示） */
@@ -309,10 +309,11 @@ export default function DiagnosisPage() {
   if (!started) {
     return (
       <main className="min-h-screen bg-[#fbf7f2] px-4 py-10 text-[#2a2522]">
-        <div className="mx-auto max-w-md rounded-3xl bg-white p-7 shadow-[0_14px_40px_rgba(40,30,20,0.08)]">
-          <p className="text-xs tracking-[0.14em] text-[#8a7c73]">SELF CHECK</p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight">結婚人格の自己分析</h1>
-          <p className="mt-3 text-sm leading-relaxed text-[#675b54]">
+        <div className="mx-auto max-w-md rounded-3xl bg-white p-7 text-center shadow-[0_14px_40px_rgba(40,30,20,0.08)]">
+          <h1 className="text-[1.375rem] font-semibold leading-snug tracking-[-0.02em] text-[#1f1a17] sm:text-[1.75rem] sm:leading-tight">
+            結婚MBTI・32キャラ診断
+          </h1>
+          <p className="mx-auto mt-4 max-w-prose text-left text-sm leading-relaxed text-[#675b54]">
             相手を測るためではなく、あなた自身の恋愛の癖・未成熟さ・結婚で苦しくなりやすい理由を見える化します。
             {total}問を<strong className="font-semibold text-[#3a332f]">{PART_SIZE}問ずつ</strong>
             進めます。直感で、当てはまる程度を選んでください。
@@ -406,7 +407,7 @@ export default function DiagnosisPage() {
             </div>
             {showAlmostThere && (
               <p className="mt-3 text-xs leading-relaxed text-[#7a6d64]">
-                あと少しで結婚人格の結果です。このパートも、直感のまま選んで大丈夫です。
+                あと少しで結婚MBTIの結果です。このパートも、直感のまま選んで大丈夫です。
               </p>
             )}
           </div>
