@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "結婚MBTI・32キャラ診断",
+  title: "結婚MBTI・32人格診断",
   description:
     "MBTIそのものではなく、恋愛・結婚時の人格反応を分析する独自の結婚MBTI（結婚人格分析）。相手分析ではなく、あなたの恋愛の癖・未成熟さ・結婚で苦しくなる理由を見える化します。",
 };

@@ -311,7 +311,7 @@ export default function DiagnosisPage() {
       <main className="min-h-screen bg-[#fbf7f2] px-4 py-10 text-[#2a2522]">
         <div className="mx-auto max-w-md rounded-3xl bg-white p-7 text-center shadow-[0_14px_40px_rgba(40,30,20,0.08)]">
           <h1 className="text-[1.375rem] font-semibold leading-snug tracking-[-0.02em] text-[#1f1a17] sm:text-[1.75rem] sm:leading-tight">
-            結婚MBTI・32キャラ診断
+            結婚MBTI・32人格診断
           </h1>
           <p className="mx-auto mt-4 max-w-prose text-left text-sm leading-relaxed text-[#675b54]">
             相手を測るためではなく、あなた自身の恋愛の癖・未成熟さ・結婚で苦しくなりやすい理由を見える化します。

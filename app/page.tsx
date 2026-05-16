@@ -134,7 +134,7 @@ export default function Page() {
             <div className="flex justify-center lg:justify-start">
               <span className="inline-flex items-center gap-2 rounded-full border border-[#e5dcd2]/80 bg-[#f2ebe3]/90 px-4 py-2.5 text-[11px] font-medium tracking-wide text-[#6b5346] shadow-sm backdrop-blur-sm sm:text-xs">
                 <Star className="h-3.5 w-3.5 shrink-0 fill-[#c4a990]/50 text-[#8a7264]" strokeWidth={1.2} aria-hidden />
-                結婚MBTI・32キャラ診断
+                結婚MBTI・32人格診断
               </span>
             </div>
 
@@ -193,7 +193,7 @@ export default function Page() {
           >
             {[
               { n: questionLabel, l: "質問", icon: Sparkles },
-              { n: "32", l: "キャラ", icon: Users },
+              { n: "32", l: "人格", icon: Users },
               { n: "5", l: "軸スコア", icon: Heart },
             ].map((item) => (
               <li

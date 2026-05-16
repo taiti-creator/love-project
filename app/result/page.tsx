@@ -18,18 +18,22 @@ function pick(row: JsonRow | undefined, key: string): string {
 
 /** result_templates.json を優先。headline はヒーローで表示するため一覧からは除外 */
 const TEMPLATE_SECTION_ORDER: { title: string; key: string }[] = [
-  { title: "幸せな結婚のために、あなたが成長すべきこと", key: "growth_message" },
-  { title: "結婚で苦しくならないための具体的な行動", key: "marriage_advice" },
-  { title: "苦しくなりやすい点（注意）", key: "warning" },
+  { title: "自分分析：恋愛で出やすい人格反応", key: "love_type" },
+  { title: "自分分析：結婚生活で出やすい傾向", key: "marriage_type" },
+  { title: "自分分析：本音の望み", key: "hidden_desire" },
+  { title: "自分分析：交際と結婚のギャップ", key: "gap" },
+  { title: "結婚で苦しくなる理由：崩れやすいパターン", key: "collapse_pattern" },
+  { title: "結婚で苦しくなる理由：気持ちが冷めやすいところ", key: "cooling_pattern" },
+  { title: "結婚で苦しくなる理由：注意したい心の反応", key: "warning" },
+  { title: "成長課題：幸せな結婚のために育てたいこと", key: "growth_message" },
+  { title: "成長課題：結婚で苦しくならないための行動", key: "marriage_advice" },
+  { title: "成長課題：長く整えるためのヒント", key: "long_term_secret" },
+  { title: "成長課題：相性が合いやすい相手像", key: "best_partner" },
   { title: "最後にあなたへ", key: "final_message" },
-  { title: "交際で出やすい反応（クセ）", key: "love_type" },
-  { title: "結婚生活で出やすい傾向", key: "marriage_type" },
-  { title: "交際と結婚のギャップ", key: "gap" },
-  { title: "結婚で苦しくなりやすいパターン", key: "collapse_pattern" },
-  { title: "気持ちが冷めやすいところ", key: "cooling_pattern" },
-  { title: "本音の望み", key: "hidden_desire" },
-  { title: "相性が合いやすい相手像（参考）", key: "best_partner" },
-  { title: "長く整えるためのヒント", key: "long_term_secret" },
+  { title: "有料レポート", key: "paid_report" },
+  { title: "有料レポート：自己分析", key: "paid_report_self_analysis" },
+  { title: "有料レポート：結婚で苦しくなる理由", key: "paid_report_marriage_pain" },
+  { title: "有料レポート：成長課題", key: "paid_report_growth" },
 ];
 
 function typeField(result: DiagnosisResult, key: "relationship_theme" | "core_desire"): string {
@@ -117,7 +121,7 @@ export default function ResultPage() {
       >
         <div className="rounded-[1.75rem] border border-[#efe6dc] bg-white p-6 shadow-[0_20px_56px_rgba(35,25,15,0.1)] sm:p-8">
           <h1 className="mx-auto max-w-sm text-balance text-center text-[1.5rem] font-semibold leading-snug tracking-[-0.02em] text-[#1f1a17] sm:max-w-md sm:text-[1.875rem] sm:leading-tight md:text-[2rem]">
-            結婚MBTI・32キャラ診断
+            結婚MBTI・32人格診断
           </h1>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-[#f4ebe3] px-2.5 py-1 text-[10px] font-semibold tracking-wide text-[#7a6d64]">
@@ -149,7 +153,7 @@ export default function ResultPage() {
           </div>
 
           <p className="mt-10 text-center text-[11px] font-semibold tracking-[0.22em] text-[#8a7c73]">
-            フルレポート（有料エリア）
+            自己分析レポート（有料エリア）
           </p>
 
           <div className="relative mt-3 min-h-[22rem] overflow-hidden rounded-2xl border border-[#ebe3d9] bg-[#faf6f1] sm:min-h-[24rem]">
@@ -180,7 +184,7 @@ export default function ResultPage() {
                 有料で全文を解放
               </p>
               <p className="mt-1 max-w-[17rem] text-center text-xs leading-relaxed text-[#7a6d64]">
-                交際のクセ、結婚で苦しくなる理由、幸せな結婚に向けた成長のヒントまで一気に読めます。
+                自分分析、結婚で苦しくなる理由、成長課題まで一気に読めます。
               </p>
             </div>
           </div>
