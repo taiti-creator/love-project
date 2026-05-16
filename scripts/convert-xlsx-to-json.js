@@ -5,7 +5,6 @@ const XLSX = require("xlsx");
 
 const workbookPath = path.resolve(process.cwd(), "marriage-db.xlsx");
 const outputDir = path.resolve(process.cwd(), "app", "data");
-
 const targetSheets = [
   { outputName: "questions", candidates: ["questions"] },
   { outputName: "logic", candidates: ["logic"] },
@@ -20,6 +19,13 @@ const targetSheets = [
     candidates: ["numerology", "diagnosis_flow"],
   },
 ];
+
+const csvOverrides = Object.fromEntries(
+  targetSheets.map((target) => [
+    target.outputName,
+    path.resolve(process.cwd(), `${target.outputName}.csv`),
+  ])
+);
 
 function ensureWorkbookExists() {
   if (!fs.existsSync(workbookPath)) {
@@ -50,6 +56,21 @@ function convertSheetToJson(workbook, sheetName) {
   });
 }
 
+function convertCsvToJson(csvPath) {
+  const csv = fs.readFileSync(csvPath, "utf8");
+  const workbook = XLSX.read(csv, {
+    type: "string",
+    raw: false,
+  });
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+
+  return XLSX.utils.sheet_to_json(worksheet, {
+    defval: null,
+    raw: false,
+  });
+}
+
 function writeJsonFile(filename, data) {
   const outputPath = path.join(outputDir, filename);
   const json = JSON.stringify(data, null, 2);
@@ -72,11 +93,14 @@ function run() {
       );
     }
 
-    const jsonData = convertSheetToJson(workbook, sheetName);
+    const csvOverridePath = csvOverrides[target.outputName];
+    const hasCsvOverride = csvOverridePath && fs.existsSync(csvOverridePath);
+    const jsonData = hasCsvOverride
+      ? convertCsvToJson(csvOverridePath)
+      : convertSheetToJson(workbook, sheetName);
     writeJsonFile(`${target.outputName}.json`, jsonData);
-    console.log(
-      `Converted: ${sheetName} -> app/data/${target.outputName}.json`
-    );
+    const source = hasCsvOverride ? path.basename(csvOverridePath) : sheetName;
+    console.log(`Converted: ${source} -> app/data/${target.outputName}.json`);
   }
 
   console.log("Import completed.");

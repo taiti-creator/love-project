@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "import-db": "node scripts/convert-xlsx-to-json.js"
+    "import-db": "node scripts/convert-xlsx-to-json.js",
+    "sync-db": "node scripts/fetch-google-sheet.js && npm run import-db"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
